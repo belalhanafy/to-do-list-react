@@ -35,6 +35,17 @@
         const createTodo = (todo, des) => {
             setTodoList([...todoList, { id: uuidv4(), task: todo, des, isEditing: false }])
             setTodoListCopy([...todoList, { id: uuidv4(), task: todo, des, isEditing: false }])
+             toast.success('task created successfully', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
         }
 
         const delataTodo = todoId => {
@@ -155,13 +166,13 @@
             setTodoList(todoListCopy.filter((todo)=> todo.task.toLowerCase().includes(word.toLowerCase())))
         }
         return (
-            <div className='w-2/4 container text-center mx-auto bg-gray-700 mt-20 p-8 rounded-md'>
-                <h1 ref={el} className='text-4xl text-white tracking-wide mb-8' />
+            <div className='container w-2/4 p-8 mx-auto mt-20 text-center bg-gray-700 rounded-md'>
+                <h1 ref={el} className='mb-8 text-4xl tracking-wide text-white' />
                 <Form createTodo={createTodo} />
                 <input
                     type="search"
                     id="search"
-                    className="outline-none block w-full mb-4 p-4 text-sm text-gray-900 border placeholder:text-gray-500 border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 "
+                    className="block w-full p-4 mb-4 text-sm text-gray-900 border border-gray-300 rounded-lg outline-none placeholder:text-gray-500 bg-gray-50 focus:ring-gray-500 focus:border-gray-500 "
                     placeholder="Search for a Task"
                     value={searchTerm}
                     onChange={(e) => {setSearchTerm(e.target.value),handleSearch(e.target.value)}}
@@ -176,7 +187,7 @@
                             <Todo task={task} key={task.id} delataTodo={delataTodo} editTodo={editTodo} />
                         ))
                     ) : (
-                        <p className='text-white text-2xl'>No tasks available</p>
+                        <p className='text-2xl text-white'>No tasks available</p>
                     )
                 }
                 
